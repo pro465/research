@@ -1,0 +1,23 @@
+the untyped lambda calculus can have infinite loops. this doc explores a way to make it always halting, by having numbers as types of terms.
+
+date: 22/09/2024
+
+purpose: to remove omega-like expressions in LC
+
+so anything that can be `x x can't appear.
+
+if we assign numbers as types of the terms, then we should have a set of rules that prevents such expressions.
+
+here's my proposal:
+
+axiom 1: if `f x appears anywhere within a program, then it must be the case that type(x) > type(x).
+
+now, expressions like `x x are outright disallowed, since type(x) is not greater than itself.
+
+axiom 2: if type(`f g) > type(h), then type(g) > type(h).
+
+since f could be just (\x. x) and therefore type(`f g) could be g.
+
+axiom 3: type(\x. T) = type(T) where T is the term inside of the lambda.
+
+axiom 4: type(`f x) = type(f)

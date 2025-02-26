@@ -1,0 +1,12 @@
+type Theorem :: (Bool, U) :: U
+type Eq :: (Expr, Expr) :: Bool
+type Apply :: (Fun, Expr, Expr) :: Expr
+
+axiom th_subset :: [Theorem(a, r) := r]
+axiom th_commute :: [Theorem(a, Theorem(b, r)) := Theorem(b, Theorem(a, r))]
+
+axiom refl :: (x) :: [r := Theorem(Eq(x, x), r)]
+axiom symm :: [Theorem(Eq(a, b), r) := Theorem(Eq(b, a), Theorem(Eq(a, b), r))]
+axiom tran :: [Theorem(Eq(a, b), Theorem(Eq(b, c), r)) := Theorem(Eq(a, c), Theorem(Eq(a, b), Theorem(Eq(b, c), r)))]
+axiom con1 :: (f, x) :: [Theorem(Eq(a, b), r) := Theorem(Eq(Apply(f, a, x), Apply(f, b, x)), Theorem(Eq(a, b), r))]
+axiom con2 :: (f, x) :: [Theorem(Eq(a, b), r) := Theorem(Eq(Apply(f, x, a), Apply(f, x, b)), Theorem(Eq(a, b), r))]

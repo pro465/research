@@ -1,0 +1,13 @@
+python impl:
+```
+num=0
+prog=[]
+p=len(prog)
+
+while True:
+    num *= prog[num%p]
+```
+
+add 2 numbers
+
+

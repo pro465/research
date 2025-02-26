@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[]{amsmath}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+
+  \newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{Project Euler - Problem 103}
+\author{Proloy Mishra}
+\date{June 5, 2024}
+
+\begin{document}
+   \maketitle
+   \section{important}
+   \begin{theorem}[]
+    there are no non-trivial solutions to the equation $ S * C = \mathbf{0}, $ where
+     $$ C =
+     \begin{bmatrix}
+        0 & 1 & 0 \\
+        1 & -4 & 1 \\
+        0 & 1 & 0
+     \end{bmatrix}
+        , $$ and $ * $ denotes the convolution operator with wrapping around the edges.
+    \end{theorem}
+    \begin{proof}
+      To start, we note 2 properties of $ * $: \\
+         $$ A * C + B * C = (A + B) * C, $$
+         $$  \left[
+\begin{array}{ccc}
+   n & \cdots & n \\
+   \vdots & \ddots & \vdots \\
+   n & \cdots & n
+\end{array}
+\right] * C = \mathbf{0} $$
+      these combined, imply that we can "reduce" a move such that there exists at least one 0 entry, and all entries are nonegative.
+      now, let's say that there exists a non-trivial (not every entry being equal) solution. Then we can reduce it. now we get a move where:\\
+       \indent 1. all of its entries are nonnegative and there exist at least one 0 entry. (since we reduced it)\\
+       \indent 2. at least one of its entry is positive. (otherwise it's trivial) \\
+     these 2 imply there exists a 0 entry such that at least one of its non-diagonal neighbours is positive.
+     now, we can see that to be a solution of the equation, it must be that the convolution of the 0 entry along with its non-diagonal neighbours must be 0,
+      which basically means
+       $$ a + b + c + d = 0, $$
+      where $a, b, c, $ and  $d$ are the neighbouring entries of the 0 entry
+      but this is impossible, as at least one of them is positive, and the rest is non-negative, so the sum is always positive.
+    \end{proof}
+    \begin{proof}
+        Let there be a toppling sequence $ p_1, \cdots, p_n $ of cells and a specific cell $ p_i $. Let's say it has $ k $ of its $ 4 $ orthogonal neigbours already toppled, giving it an advantage of $ k $, making the minimum required number of stones in it before the cycle be $ 4 - k. $ If we move it to the front of the sequence so that it's the first cell to be toppled, its minimum requirement now becomes $ 4, $ increasing the total requirement by $ k. $\\ 
+       However, each of its $ k $ neighbours now get an additional advantage of $ 1 $ from another one of their neighbours (itself, more specifically $ p_i $) getting toppled, hence decreasing the total minimum requirement by $ 1 \cdot k = k $, thus making the net change from the ordering change $ 0 $
+    \end{proof}
+\end{document}

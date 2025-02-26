@@ -1,0 +1,32 @@
+problem: given N, return a subset S of whole numbers s.t. cardinality of S is minimized, and for all x in [N] = {0, 1, ..., N}, there exists a,b in S s.t. a+b=x.
+
+[theorem: this problem is equivalent to finding the minimum value of x s.t. x=a/2^k for some k and a, a<2^(k+1), and x^2 >= (1-1/2^(N+1))/(1-1/2) = 2-1/2^N.
+
+proof:
+    let's say there was an x that fulfills the above criterion while not being a solution to the original problem.
+    that means there is a "hole" that doesnt get filled, let's call it w. so 0 <= w <= N.
+    then the x^2 has to be less than 2-1/2^w.
+    so 2-1/2^N <= x^2 < 2-1/2^w.
+    => 2-1/2^N < 2-1/2^w
+    => -1/2^N < -1/2^w
+    => 1/2^N > 1/2^w
+    => N < w
+    but this contradicts (1). Hence, there can be no such x. 
+    And by contrapositivity, every x fullfilling this criterion is a solution to the original problem.
+    The converse is trivial to prove.
+    QED.
+
+so, x^2 >= 2-1/2^N
+<=> x^2 >= (2^(N+1)-1)/2^N
+<=> a^2/2^2k >= (2^(N+1)-1)/2^N] WRONG as 2(1/2^n) != 1/2^n
+
+if for some x, 2x^n = x^n for all n > 0
+=> kx^n = x^n , k > 0
+=> k(\sum_i x^{a_i}) = \sum_i k x^{a_i} = \sum_i x^{a_i}
+=> ky = y, y \in N[x] 
+
+(a + b)^2 = a^2 + ab + b^2
+(2^k+a)(2^l+b) = 2^(k+l) + a2^l + b2^k + ab
+1+1 = 1
+
+

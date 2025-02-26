@@ -1,0 +1,9 @@
+def run(prog):
+    inp = prog.pop()
+    s = []
+    i = 0
+    while len(s) > 0:
+       i += s.pop()
+       i += inp[0]
+       s += prog[i]
+       inp = inp[1:]

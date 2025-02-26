@@ -1,0 +1,11 @@
+the only things it should require are
+```
+mkdir
+cd
+rmdir
+rm
+cp
+```
+and the ability to invoke other scripts
+
+

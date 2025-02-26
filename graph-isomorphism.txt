@@ -1,0 +1,10 @@
+# Graph isomorphism
+2^(n*(n-1)/2) possible graphs from n vertices.
+hence 2^(n*(n-1)/2) - nu(n) unique graphs, where nu(n) = non-unique graphs.
+number isomorphic graphs for a given graph = number of unique permutations.
+encoding - 
+  prime numbers
+    - does not seem to work, idk why
+        - now know: too complex to sort
+  only count non-swappable vertices
+

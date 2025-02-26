@@ -1,0 +1,15 @@
+e(n, k) = e(n, k-1) + o(n-k, k-1)
+o(n, k) = o(n, k-1) + e(n-k, k-1)
+
+e(n, k) = \sum_{i=1}^{k} o(n-i, i-1)
+o(n, k) = \sum_{i=1}^{k} e(n-i, i-1)
+
+e(0, 0) = 1, o(0, 0) = 0
+e(n, 0) = 0, o(n, 0) = 1, n > 0
+e(n, k) = e(n, n), o(n, k) = o(n, n), n < k
+
+e(n, n) - o(n, n) = \sum_{i=1}^{k} o(n-i, i-1) - \sum_{i=1}^{k} e(n-i, i-1)
+       = \sum_{i=1}^{k} o(n-i, i-1) - e(n-i, i-1)
+
+
+

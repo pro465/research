@@ -1,0 +1,18 @@
+Let $O$ be a necklace with $c$ colours, length $l$, and period $p$.
+
+then, necessarily, $p \divides l$. 
+This implies that for all of the multiples $p \leq m p \leq l$ of $p$,
+
+$$ p|gcd(m p, l). $$
+
+which means it will be counted in $c^gcd(m p, l)$ for every one of those $l \over p$ multiples.
+
+Further, each of them also counts the $p$ different "shifts" of $O$, 
+thus multiplying the count to result in $$ \frac{l}{p} \cdot p = l $$.
+
+Hence each of the unique necklaces get counted exactly $l$ times in the expression
+
+$$ \sum_{i=1}^{l} c^gcd(i, l), $$
+
+and thus we need to divide it by $l$ to get the number of unique necklaces of length $l$:
+$$ F(c, l) = \frac{1}{l} \sum_{i=1}^{l} c^{gcd(i, l)}. $$

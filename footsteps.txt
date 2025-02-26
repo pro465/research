@@ -1,0 +1,13 @@
+link: https://esolangs.org/wiki/Footsteps
+
+# turing completeness proof notes
+
+- problem: dont know how to skip
+- empty lines may help
+  - or may not. might just make it eqv. to PDA.
+- partial/possible solution #1: somehow decide what would be skipped at time of copying instead of after.
+  - not possible. need data.
+- possible sol #2: cicdcicdcicd... where c is copy next or empty line, i is instruction, d is data.
+  - recursive definition of 0 data
+    - may be fixed by using end.
+

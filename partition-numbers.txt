@@ -1,0 +1,18 @@
+x_1 x_2 ... x_n, where f(x_i) = ix_i, f(x y) = f(x+y) = f(x)+f(y), x_i \in \N\setminus{0}
+if a = x_1 x_2 ... x_n, and b = y_1 y_2 ... y_n, then,
+nth term of a*b = \sum_{i | n} x_i * y_{n/i}
+
+f(a*b) = f(a)f(b)
+
+for number k with f(k) prime,
+    k \neq a*b, where a,b \neq k
+
+lets denote the set of all such numbers \mathbb{P}
+
+for all a, b, c \in \mathbb{P}, ca = cb \implies a=b if c \neq 0.
+
+for all a, b, c \in \mathbb{P}, a | b \lor a | c \implies a | bc.
+
+modular equivalence is an equivalence relation here too.
+
+primes factorization is unique in this number system too (up to reordering).

@@ -1,0 +1,5 @@
+(f (z) n) = (s n);
+(f (s x) (z)) = (f x (s x));
+(f (s x) (s y)) = (f x (f (s x) y));
+(f' x) = (f x x);
+(main) = (f' (s (s (s (z)))));

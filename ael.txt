@@ -1,0 +1,69 @@
+
+
+{| class="wikitable"
+|+ Instructions
+|-
+! Instructions !! stack effect !! Meaning
+|-
+| <code>:</code> || <code>x -- x x</code> || duplicate top item
+|-
+| <code>$</code> || <code>x y -- x</code> || pop
+|-
+| <code>~</code> || <code>x y -- y x</code> || swap
+|-
+| <code>;</code> || <code>x y -- x y x</code> || duplicate the second-to-top item
+|-
+| <code>!</code> || <code>x y -- y x y</code> || put a copy of the top item below the second item
+|-
+| <code>d</code> || <code>x ...y n -- ...y x</code> || dig up the item at n depth
+|-
+| <code>b</code> || <code>...y x n -- x ...y</code> || bury the top item into depth n
+|-
+| <code>`</code> || <code>x -- -x</code> || negate
+|-
+| <code>+</code> || <code>x y -- x+y</code> || add
+|-
+| <code>-</code> || <code>x y -- x-y</code> || subtract
+|-
+| <code>*</code> || <code>x y -- x*y</code> || multiply
+|-
+| <code>/</code> || <code>x y -- x//y</code> || integer division
+|-
+| <code>%</code> || <code>x y -- x%y</code> || modulo
+|-
+| <code>,</code> || <code>-- byte</code> || get input
+|-
+| <code>.</code> || <code>byte(s) --</code> || output byte(s) modulo 256
+|-
+| <code>#</code> || <code>object --</code> || pretty print
+|-
+| <code>@</code> || <code>list idx -- list[idx]</code> || index into a list
+|-
+| <code>"..."</code> || <code> -- list</code> || push a list formed by the bytes between the <code>"</code>s. \ inside this escapes the next byte.
+|-
+| <code>[c]</code> || <code>list -- list.map(c)</code> || push a list formed by mapping the part inside <code>[]</code> to the list at the top
+|-
+| <code>?</code> || <code>n -- [0]*n</code> || push the list <code>{0, 0, ..., 0}</code> of length n
+|-
+| <code>\</code> || <code>list -- prefixes(list)</code> || push the list consisting of the prefixes of the given list 
+|-
+| <code><nowiki>|</nowiki></code> || <code>x n -- x[..n] x[n..]</code> || slice the list at the given position into two
+|-
+| <code>c</code> || <code>list1 list2 -- list1 ++ list2</code> || concatenate two lists
+|-
+| <code>w</code> || <code>x -- [x]</code> || "wrap" the object to form a list
+|-
+| <code>p</code> || <code>list x -- list ++ [x]</code> || push the top item to the list
+|}
+
+=== notes: ===
+# <code>n</code> defaults to 2 for <code>d</code> and <code>b</code>, and to 0 for <code>@</code> if the top item of the stack isn't an integer, in which case the top item isn't popped before the operation.
+
+== Some Examples ==
+=== Fibonacci ===
+<pre>
+"edit number in next line to provide input"$
+40?
+1`1 2d[$~;+:]#
+</pre>
+

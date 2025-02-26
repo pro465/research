@@ -1,0 +1,4 @@
+if (a+bi)(a-bi)=c then
+(a+bi)^2(a-bi)^2/|a+bi|^2=c
+(a+bi)^2/(a+bi)(a-bi)=(a+bi)/(a-bi)
+=(a+bi)*()

@@ -1,0 +1,11 @@
+[D] [A] [B] [C] [] take take take i [] take take take take i
+[D] [A] [B] [[C]] take take i [] take take take take i
+[D] [A] [[C] [B]] take i [] take take take take i
+[D] [[C] [B] [A]] i [] take take take take i
+[D] [C] [B] [A] [] take take take take i
+[D] [C] [B] [[A]] take take take i
+[D] [C] [[A] [B]] take take i
+[D] [[A] [B] [C]] take i
+[[A] [B] [C] [D]] i
+[A] [B] [C] [D]
+

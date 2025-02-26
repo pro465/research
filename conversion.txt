@@ -1,0 +1,5 @@
+T[\x F] -> [T[F]] k
+T[\x x] -> [k] [k] s
+T[\x \y C] -> T[\x T[\y C]]
+T[\x `A B] -> [T[\x B]] [T[\x A]] s
+T[`A B] -> [T[B]] T[A]

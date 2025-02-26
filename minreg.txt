@@ -1,0 +1,182 @@
+'''Minreg the Cat''' (short for "Minimal Regex: the Concatenative") is a variant of Regex,
+created by the UOPL (Union of [[User:Olus2000]], [[User:Pro465]], and [[User:LyricLy]]) in [[:Category:2024|2024]].
+
+pro465 came up with the idea (concatenative regex) inspired by 
+some discussion abt regex on the esolangs discord server.
+And his laziness while implementing it led to it being minimal.
+
+olus came up with most of the concatenative variations of regex commands 
+(albeit with a little help from the rest).
+
+lyricly provided constructive criticisms of every single iteration.
+She also created the semantics of the final iteration of <code>,</code> (see below).
+
+== Working == 
+each instruction modifies a matcher, which is basically a tree which matches a specific set of strings according to its contents.
+note the appending means adding the thing to the matcher tree's list of children, 
+and popping means removing the last element of the list, which makes it effectively a stack.
+
+{| class="wikitable"
+!Instruction
+!Meaning
+|-
+|<code>.</code>
+|appends a matcher that matches any character.
+|-
+|<code>\</code>
+|appends a matcher that matches the next character in the string and skips it.
+|-
+|<code>,</code>
+|pops the last 2 children of the tree and appends a matcher that only matches if the first and the second child match in sequence.
+|-
+|<code><nowiki>|</nowiki></code>
+|pops the last 2 children of the tree and appends a matcher that matches if at least 1 of the children matches.
+|-
+|<code>*</code>
+|pops the last child of the tree and appends a matcher that matches 0 or more of the child.
+|-
+|Any other character
+|appends a matcher that matches the character in question.
+|-
+|}
+
+Once the expression is fully evaluated, it results in a matcher, 
+which can be used to test if it matches with strings like normal Regex.
+
+== Examples ==
+
+<code>ab</code> and <code>ab,</code> matches only <code>ab</code>. 
+<code>ab|</code> matches <code>a</code> and/or <code>b</code>. 
+<code>c*</code> matches <code></code>, <code>c</code>, <code>cc</code>, etc.
+<code>ab*</code> matches <code>a</code>, <code>ab</code>, <code>abb</code>, etc.
+<code>ab,*</code> matches <code></code>, <code>ab</code>, <code>abab</code>, etc.
+<code>ab,*cd|,*</code> matches <code></code>, <code>abccd</code>, <code>ababcabdd</code>, etc.
+
+== Implementation ==
+in Rust:
+
+<pre>
+use std::io::{self, Write};
+
+fn main() {
+    let mut lines = io::stdin().lines().map(Result::unwrap);
+    let mut prompt = |s| {
+        print!("{s}");
+        io::stdout().flush().unwrap();
+        lines.next()
+    };
+    let regex = prompt("Enter Minreg expression: ").expect("could not read regex from input");
+    let tree = Tree::new(&regex);
+    while let Some(line) = prompt("Enter string: ") {
+        if tree.matches(&line) {
+            println!("matched")
+        } else {
+            println!("did not match")
+        }
+    }
+}
+
+#[derive(Debug)]
+enum Tree {
+    Any,               // .
+    Or(Vec<Tree>),     // |
+    Kleene(Box<Tree>), // *
+    Group(Vec<Tree>),  // ,
+    Literal(char),
+}
+
+impl Tree {
+    fn new(regex: &str) -> Self {
+        let mut stack = Vec::new();
+        let mut iter = regex.chars();
+        while let Some(x) = iter.next() {
+            if !",.|\\*".contains(x) {
+                stack.push(Tree::Literal(x));
+            } else if x == '\\' {
+                stack.push(Tree::Literal(
+                    iter.next().expect("why tf wud u put \\ @ da end??"),
+                ));
+            } else {
+                if x == '.' {
+                    stack.push(Tree::Any);
+                } else {
+                    let b = stack.pop().expect("empty stack");
+                    if x == '*' {
+                        stack.push(Tree::Kleene(Box::new(b)));
+                        continue;
+                    }
+                    let mut a = stack.pop().expect("empty stack");
+                    match x {
+                        '|' => match &mut a {
+                            Tree::Or(v) => v.push(b),
+                            _ => a = Tree::Or(vec![a, b]),
+                        },
+                        ',' => match &mut a {
+                            Tree::Group(v) => v.push(b),
+                            _ => a = Tree::Group(vec![a, b]),
+                        },
+                        _ => unreachable!(),
+                    }
+                    stack.push(a);
+                }
+            }
+        }
+        Tree::Group(stack)
+    }
+    fn matches(&self, s: &str) -> bool {
+        let (b, idx) = self.matches_priv(s);
+        b && s.len() == idx
+    }
+    fn matches_priv(&self, s: &str) -> (bool, usize) {
+        let mut idx = 0;
+        let fail = (false, 0);
+        match self {
+            Tree::Any => {
+                if let Some(c) = s.chars().next() {
+                    (true, c.len_utf8())
+                } else {
+                    fail
+                }
+            }
+            Tree::Literal(c) => {
+                if Some(*c) == s.chars().next() {
+                    (true, c.len_utf8())
+                } else {
+                    fail
+                }
+            }
+            Tree::Group(v) => {
+                for m in v {
+                    if let (true, i) = m.matches_priv(&s[idx..]) {
+                        idx += i;
+                    } else {
+                        return fail;
+                    }
+                }
+                (true, idx)
+            }
+            Tree::Or(v) => {
+                for m in v {
+                    if let (true, i) = m.matches_priv(s) {
+                        return (true, i);
+                    }
+                }
+                fail
+            }
+            Tree::Kleene(b) => {
+                while let (true, i) = b.matches_priv(&s[idx..]) {
+                    idx += i;
+                }
+                (true, idx)
+            }
+        }
+    }
+}
+</pre>
+
+[[Category:2024]]
+[[Category:Finite state automata]]
+[[Category:Total]]
+[[Category:]]
+[[Category:]]
+[[Category:]]

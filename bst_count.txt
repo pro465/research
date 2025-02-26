@@ -1,0 +1,9 @@
+let $f(k, d)$ be the number of ways to create a bst w nodes labelled from 1 to k (inclusive) with depth $\le d$.
+then, $$f(k, d) = \sum_{i=0}^{k-1} f(i, d-1) f(k-i-1, d-1).$$ 
+
+proof: we have k choices for the root node's label (1 to k). 
+Let $i$ be the root label we choose.
+The left subtree has labels 1 to $i-1$. similarly, the right subtree has labels i+1 to k.
+we can relabel them by subtracting i from each, to result in labels 1 to k-i. 
+Both of these must have a maximum depth of $d-1$. therefore the total number of trees
+containing i as their root nodes with depth $\le d$ is $$f(i-1, d-1) f(k-i, d-1).$$

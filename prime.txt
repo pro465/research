@@ -1,0 +1,10 @@
+f(p^k)=k+1
+f(ab)=f(a)f(b), gcd(a,b)=1
+f(n(n+1)/2)=
+n=2n+k
+(2n+k)^2+(2n+k)
+4n^2+4nk+2n+2k
+2n^2+2nk+n+k
+(2n+1)(n+k)
+f(2n+1)f(n+k)>500
+

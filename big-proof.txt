@@ -1,0 +1,22 @@
+let max(t) be the maximum of all the labels in the tree t, and app(t) be the number of its appearances in the tree.
+let root(t) be the label at the root of the tree t.
+
+we'll also say "halts" to mean "goes to some tree t with max(t) = 0 under this process".
+
+lemma 1: let all trees t with max(t) < n halt, then all trees t with max(t)=n also halt.
+proof:
+base case: let there be a tree t with only root(t)=max(t) (app(t) = 1). 
+    then its child subtrees have max < n, which halt by the assumption.
+    each reset also only sets labels to be < n, resulting in them still halting after resets.
+inductive case:
+    let all trees t with max(t)<n, or max(t)=n and app(t)<k halt, 
+    and let there be a tree t with max(t)=n, app(t)=k and root(t)=max(t).
+    then its child subtrees have app < k and max <= n, which halt by the inductive hypothesis.
+    each reset also only sets labels to be < n, resulting in them still halting after resets.
+QED
+
+theorem: all trees halt.
+proof:
+base case: a tree t with max(t)=0 halts.
+inductive case: lemma 1
+QED

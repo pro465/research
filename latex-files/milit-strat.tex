@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[]{amsmath}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{The Torpedo Problem}
+\author{Moja}
+\date{12 February, 2025}
+
+\begin{document}
+    \maketitle
+    \section{Definition}
+    \begin{definition}[The Problem]
+        Let there be a submarine with initial position $P_0 \in \mathbb{Z}$ and speed $v \in \mathbb{Z}$, both of which are unknown to us. 
+        Find a strategy to drop torpedoes $f: \mathbb{N} \to \mathbb{Z}$ s.t. no matter what $P_0$ and $v$ are, the submarine gets destroyed in finite time. \\
+        That is, for every choice of $P_0$ and $v$, there exists a time $t \in \mathbb{N}$ s.t. 
+            $$ f(t) = P_0 + vt. $$
+    \end{definition}
+
+    \section{Solution}
+    \begin{theorem}
+	Let $g: \mathbb{N} \to \mathbb{N}$ be defined by: 
+             $$ g(0) = 0; $$
+	    $$ g(2x+y) = 2g(\lfloor \frac{x}{2} \rfloor) + y, y \in \{ 0, 1 \} $$ 
+	and $f: \mathbb{N} \to \mathbb{Z}$ by:
+	    $$ f(4x+2y+z) = (-1)^yg(\lfloor \frac{x}{2} \rfloor)+(-1)^z(4x+2y+z)g(x), y,z \in \{ 0, 1 \} $$
+	Then, the strategy given by the function $f$ is a solution to the aforementioned problem.
+    \end{theorem}
+    \begin{proof}
+	    To prove this, note that the function $h: \mathbb{N} \to \mathbb{Z}^2$ defined by 
+	    $$ h(4x+2y+z) = ((-1)^yg(\lfloor \frac{x}{2} \rfloor), (-1)^zg(x)), y,z \in \{ 0, 1 \} $$
+	    is bijective. Indeed, $g(x)$ just takes every odd positioned bit of $x$ to create its result, so the whole thing is just separating the odd- 
+	    and even-positioned bits to create two signed numbers, with their first bit deciding their signs. Thus, to invert the operation, 
+	    just interleave the bits and signs of the numbers.\\
+
+	    Also, note that $$f(t) = \text{fst}(h(t)) + \text{snd}(h(t))t$$ where $\text{fst, snd}: \mathbb{Z}^2 \to \mathbb{Z}$ are defined by 
+	    $$ \text{fst}((x, y)) = x, $$ and $$ \text{snd}((x, y)) = y. $$ \\
+	    Now, say the submarine has initial position $P_0$ and velocity $v.$ Since we just proved $h$ is bijective we know there is a value $t$ for 
+	    which $$h(t) = (P_0, v). $$ But that means 
+\begin{equation}
+\begin{aligned}
+f(t) &= \text{fst}(h(t))+\text{snd}(h(t))t \\
+&= P_0 + vt,
+\end{aligned}
+\end{equation}
+ which is what we wanted to prove.
+    \end{proof}
+\end{document}

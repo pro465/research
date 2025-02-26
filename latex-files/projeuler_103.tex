@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[]{amsmath}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+
+  \newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{Project Euler - Problem 103}
+\author{Proloy Mishra}
+\date{June 5, 2024}
+
+\begin{document}
+  \maketitle
+  \section{Definition}
+  \begin{definition}[The Problem]
+    \label{problemdef1}
+    Let $S(A)$ be the sum of a set $A.$ Then the problem, given a natural number $n$, is to find a set $A$ which minimizes $S(A)$ s.t. $|A| = n$, and for any 2 disjoint subsets $X$ and $Y$ of it: \\
+    \indent 1. $S(X) \neq S(Y),$ and \\
+    \indent 2. $|X| > |Y| \implies S(X) > S(Y).$ \\
+  \end{definition}
+  \section{Getting a more generalized (and useful) requirement}
+  \begin{theorem}
+    $A$ satisfying \ref{problemdef1} is equivalent to a similar set of requirements which don't require that $X$ and $Y$ be disjoint, merely distinct.
+  \end{theorem}
+  \begin{proof}
+    Let $X \neq Y,$ where $X, Y \subseteq A.$
+    Separate them out into pairwise disjoint sets $X - Y,$ $Y - X,$ and $X \cap Y.$ By the requirement of $A$, $S(X-Y) \neq S(Y-X).$
+    Hence,
+    \begin{align*}
+      &S(X-Y)+S(X \cap Y) \neq S(Y-X)+S(X \cap Y) \\
+      &\implies S((X - Y) \cup (X \cap Y)) \neq S((Y-X) \cup (X \cap Y)) \\
+      &\implies S(X) \neq S(Y).
+    \end{align*}
+    The converse is ez. \\
+    Similarly, requirement \#2 can be generalized too.
+  \end{proof}
+  Note since $A$ satisfying \#2 means that $|X| \neq |Y| \implies S(X) \neq S(Y),$ requirement \#1's generality is actually redundant. 
+  Its only contribution is with same-length sets. so, now, a better definition is:
+  \begin{definition}[The Problem - Definition 2]
+    \label{problemdef2}
+    The problem, given a natural number $n$, is to find a set $A$ which minimizes $S(A)$ s.t. $|A| = n$, 
+    and for any 2 distinct subsets $X$ and $Y$ of it: \\
+    \indent 1. $|X| = |Y| \implies S(X) \neq S(Y),$ and \\
+    \indent 2. $|X| > |Y| \implies S(X) > S(Y).$ \\
+  \end{definition}
+
+
+\end{document}

@@ -1,0 +1,13 @@
+2^(p-1)(2^p-1)
+sum = (2^p - 1)(2^p - 1) + (2^p - 1) 
+    = (2^p - 1)2^p
+    = 2(2^(p-1)(2^p-1))
+
+let n = x*p^q where p doesnt divide x
+sum(n) = sum(x)*(p^(q+1)-1)/(p-1)
+
+for a-perfect number n, sum(n) = a*n.
+that means n=(f(p_1, q_1) f(p_2, q_2) ... f(p_i, q_i))/a
+where f(p, q) = (p^(q+1)-1)/(p-1)
+
+

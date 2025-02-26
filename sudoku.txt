@@ -1,0 +1,1 @@
+can we design a logic system that helps us derive the relationships between numbers in a sudoku board?

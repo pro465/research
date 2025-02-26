@@ -1,0 +1,105 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{
+  paper=a4paper,
+  margin=70pt,
+}
+
+\title{Counting Hereditary Graphs}
+\date{2024-05-22}
+\author{Proloy}
+
+\begin{document}
+  \maketitle
+
+  A few days/weeks ago (the author doesn't remember the exact time), TARDIInsanity posted in the Esolangs Discord channel a new maths problem. 
+  It was actually designed to get insights into a more complicated problem, but ended up being interesting in its own right.
+
+  \section{The problem}
+  To get to the problem, we need to learn what DWD graphs are first. They stand for ``Distance Well-Defined graphs", 
+  although the author would want to call them DDWD for Directed DWDs.
+  They are directed graphs where the distance between any two specific nodes is the same regardless of the path taken to go from one to another.
+  the distance of any path is defined to be the sum of the distances of the edges travelled in the path, where
+  the distance along a directed edge is:\\
+  \indent 1 if it's directed along the direction of the edge.\\
+  \indent -1 if it's directed opposite the direction of the edge.\\
+
+  Also, the graph must be connected.
+
+  The original problem was to count the number of (D)DWDs given $n$ nodes. But that proved too diffcult for us, 
+  so TARDIInsanity came up with an easier problem.
+  
+  \noindent The new problem (and the problem we will solve in this article) is, to quote them: \\
+  \emph{
+  \indent
+     How many ``hereditary" DWD graphs exist, as a function of the depth (the maximum distance)?\\
+  \indent ``hereditary" means: \\
+  \indent \indent  a. there is exactly one leaf node (one node with 0 outgoing edges)\\
+  \indent \indent  b. all nodes have exactly 0 or 2 incoming edges\\
+  \indent \indent  c. all nodes with 0 incoming edges are equidistant from the (singular) leaf.
+  }
+
+  \section{Layers}
+    A (D)DWD graph can be easily arranged to form layers with 0 distance between the nodes in any particular layer. The reader is requested to imagine some examples
+    as the author is too lazy (and perhaps embarrassed) to create terrible drawings to communiciate his point.
+
+    Note that all the nodes in a layer can only have outgoing (or incoming) edges to at most one layer. 
+    This is because if the nodes have outgoing (or incoming) edges to more than two layer, the distance is no longer well defined.
+
+    Together, these give the reason for the name choice of ``hereditary (D)DWD graphs". Each layer could be considered a generation, and 
+    the two nodes to which the incoming edges of each node are coming from could be considered their parents. Hence the graphs could be considered family "trees" 
+    (actually graphs since\emph{... ahem...} genetically pure children are allowed.)
+
+    \subsection{A related but simpler (sub-)problem}
+      Let's focus only on the connection between two layers. The question we ask is: 
+      \emph{\paragraph{}
+      How many ways are there for $n$ parents to give birth to $k$ children, 
+      with no parent being childless and no two children being siblings?}
+
+      (Note that distinct pairs of parents give birth to distinct children.)
+
+      Let $c(n, k)$ denote the answer to the above question. Then:
+      
+        $$c(n, k) = \sum_{i=0}^{n} (-1)^{n-i} {n \choose i} {{i \choose 2} \choose k}. $$
+        
+      \begin{proof}
+        We proceed using induction.
+        \subparagraph{Base case} The amount of undercounting for $n-2$ non-isolated nodes in $$ {{n \choose 2} \choose k} - n {{n \choose 2} \choose k} $$ is $ {c(n-2, k)}, $ which is counted exactly once in $$ (-1)^{n-(n-2)} {n \choose n-2} {{n-2 \choose 2} \choose k} . $$
+        \subparagraph{Inductive case} Let $a(n, k, j)$ be the amount of overcounting or undercounting with the partial sum involving only terms with $i > j$. Then,
+        \begin{align*}
+          a(n, k, j) &= c(j, k) \sum_{i=j+1}^{n} (-1)^{n-i} {n-j \choose n-i} \\
+                     &=c(j, k) \sum_{i=0}^{n-j-1} (-1)^{i} {n-j \choose i} \\
+                     &= c(j, k) (-1)^{n-j-1} {n-j-1 \choose n-j-1} \\
+                     &= c(j, k) (-1)^{n-j-1}
+        \end{align*}
+        (For the third step, see \ref{f1}.)
+        Thus, the compensation is $$ -a(n, k, j) = c(j, k) (-1)^{n-j}, $$ which is counted exactly once in $$(-1)^{n-j} {n \choose j} {{j \choose 2} \choose k}. $$
+        \end{proof}
+
+    \subsection{Moving up and close}
+    Let's make it harder and closer to the problem we are trying to solve. We ask ourselves:
+    \emph{
+      \paragraph{}
+      Given 3 multisets $A$, $B$, and $C$ of nodes,
+      how many ways are there for the nodes in $A$ and $B$ to give birth to $C$, with no childless node in B?\\
+    }
+    
+    \noindent A multiplicity of a node in a multiset represents the total number of its siblings plus itself. The author hopes the reader can figure out how this is 
+    helpful in the quest to solve the final problem.
+
+    A multiset of nodes can be represented by a multiset of multiplicities, where each element represents a single group of siblings.
+    
+    Let $f(A, B, C)$ denote the answer to the above question. Then,
+    \begin{align*}
+      f(A, [b]t :: B, C) &= 
+    \end{align*}
+
+\section{References}
+\paragraph{}
+\label{f1} \url{https://proofwiki.org/wiki/Alternating_Sum_and_Difference_of_r_Choose_k_up_to_n}
+
+\end{document}

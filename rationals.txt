@@ -1,0 +1,64 @@
+(xyz) =  x+y+z
+[xyz] = 1/(1/x+1/y+1/z) = 1/(1/x+1/(1/(1/y+1/z))) = [x[yz]]
+
+
+1 - 1 = 1
+2 - (11) = 2,[11] = 1/2
+3 - (111) = 3, ([11]1) = 3/2, [(11)1] = 2/3, [[11]1] = 1/3, [111] = 1/3
+
+
+R(a/b, n) iff a,b <= F_n
+R(x, n) => R(1/x, n)
+
+lemma: F_mF_n <= F_(m+n-1)
+proof:
+    F_1F_n = F_n <= F_(1+n-1)
+    F_2F_n = F_n <= F_(2+n-1)
+    F_(m-1)F_n <= F_((m-1)+n-1), F_mF_n <= F_(m+n-1) 
+        => F_(m+1)F_n <= F_((m+1)+n-1)
+    QED
+
+lemma: F_mF_(n+1) + F_(m+1)F_n <= F_(m+n+1)
+proof:
+    F_1F_(n+1) + F_2F_n = F_(n+1) + F_n <= F_(1+n+1)
+    F_2F_(n+1) + F_3F_n = F_(n+1) + 2F_n <= F_(2+n+1)
+    F_mF_(n+1) + F_(m+1)F_n <= F_(m+n+1)
+    F_(m+1)F_(n+1) + F_(m+2)F_n <= F_(m+n+2)
+        => F_(m+2)F_(n+1) + F_(m+3)F_n <= F_(m+n+3) = F((m+2)+n+1)
+    QED
+
+lemma: 4F_n <= F_(n+3), n>1
+proof:
+    4F_2 = 4 <= 5 = F_5
+    4F_3 = 8 <= 8 = F_6
+    4F_n <= F_(n+3), 4F_(n+1) <= F_((n+1)+3)
+    => 4F_(n+2) <= F_((n+2) + 3)
+    QED
+
+lemma: 2F_mF_n <= F_(m+n), m,n>1
+proof:
+    2F_2F_n = 2F_n <= F_(2+n)
+    2F_3F_n = 4F_n <= F_(3+n), n>1
+    2F_mF_n <= F_(m+n), 2F_(m+1)F_n <= F_((m+1)+n)
+        => 2F_(m+2)F_n <= F_((m+2)+n)
+    QED
+
+
+R(a/b, m), R(c/d, n) => R(a/b + c/d, m+n)
+
+proof:
+    assume that R(a/b, m) and R(c/d, n)
+    then, bd <= F_mF_n <= F_(m+n)
+    ad+bc <= 2F_mF_n <= F_(m+n), m,n>1
+    if atleast one of m or n is 1, then one of a/b or c/d is 1.
+    WLOG, lets assume m=1.
+    then a/b = 1 which means a/b+c/d = (d+c)/d = (c+d,d) <= (F_(n+1),F_n)
+    QED
+    
+
+I(a)a + I(c)c = I(d)d + I(b)b = 1
+I(a)a + I(e)e = I(b)b
+I(d)d + I(e)e = I(c)c
+I(a) = I(c) + I(e), I(b) + I(e) = I(d)
+I(a)+I(b)=I(c)+I(d)
+

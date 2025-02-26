@@ -1,0 +1,9 @@
+== Computational class ==
+The author is pretty sure it's TC.
+
+Proof sketch:
+Take an arbitrary MM with {INC, CMPJMP} as its base, where the CMPJMP command takes two targets, one for when it is equal, and one for when it's not.
+
+Next, take all the jumps' targets. divide the program into contiguous blocks which start with one target location and end with the next.
+
+
