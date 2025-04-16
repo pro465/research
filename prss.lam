@@ -1,0 +1,50 @@
+``````(\fix\pair\nil\cons\n\list
+  ```(\step
+       `fix(\self\a\n
+         ``a
+           (\x\y ``self (``step a n) (\f\x `f ``n f x))
+           (n)
+        )
+     )
+    (`fix(\self\a\n
+      ``a
+        (\h\t
+          ``h\ch\ct
+            ``ch
+               (\x\y ``cons (``self h n) t)
+    	     (``n (`cons ct) t)
+    	  t
+        )
+        nil
+      )
+    )
+    (```fix(\self\r ``r
+        (\h\t ```h
+	  (\z ``self t
+	    (\res\rem ``self rem
+	      (\res2\rem ``pair (``cons res res2) rem)
+	    )
+	  )
+	  (\z ``pair nil t)
+	  (nil)
+	)
+	(``pair nil nil)
+      )
+      (list)
+      (\res\rem res)
+    )
+    (n)
+)
+(\f `\x `x x \x `f \z ``x x z)
+(\a\b\f ``f a b)
+(\c\n n)
+(\a\b\c\n ``c a b)
+(\f\x `f`f`f x)
+(```\cons\z\o
+     ``cons o ``cons o ``cons z ``cons o z
+   (\a\b\c\n ``c a b)
+   (\a\b b)
+   (\a\b a)
+)
+
+

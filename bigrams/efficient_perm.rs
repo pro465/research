@@ -2,8 +2,8 @@ use std::{io, fs::read_to_string};
 use std::time::{UNIX_EPOCH, SystemTime as S};
 use std::collections::HashSet;
 
-const ROWS: usize = 1;
-const COLS: usize = 26;
+const ROWS: usize = 8;
+const COLS: usize = 8;
 
 fn ru64() -> u64 {
     let s = S::now().duration_since(UNIX_EPOCH).unwrap().as_nanos();
