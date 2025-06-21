@@ -1,0 +1,141 @@
+~ = swap
++ = dup
+< = i
+> = unit
+, = cat
+- = pop
+
+try 1
+a = ~>+
+b = ,<-
+ab = ~ 
+~a = >+
+()b = <-
+~a()b = >
+>()b = -
+(())b = <
+~a<~< = +
+, not possible i think
+
+try 2
+a = ~>+    (b)(a) -- a((b))((b))
+b = <-,
+
+()b = -,
+()()b = ,
+ab = ~>,
+(,)b = --,
+a,b = ~,
+()a--, = -
+a- = ~>
+a-b = ~-,
+(()()()),b- = <
+a-< = ~
+~a- = >
+~a,< = +
+
+b not proper combinator
+
+try 3
+a = ~>+ (b)(a) -- (a)((b))((b))
+b = -,< (c)(b)(a) -- cb
+
+()b = ,<
+()()b = <
+ab = dip
+a()b = ~+
+
+, is neutralized by <
+
+try 4
+a = ,>+ (b)(a) -- ((ba))((ba))
+b = -~< (c)(b)(a) -- (b)c
+
+()a = >+
+()b = ~<
+>+~< = >+<
+>+<~< = +
++~< = +<
+a~<~< = ,+
+,+~< = ,+<
+()~<~< ((a)) -- (a)
+>+()~<~< = >+<
+
+try 5
+a = -+> (b)(a) -- (b)((b))
+b = ,~< (c)(b)(a) -- (ba)c
+
+()a = +>
+()b = ~<
+()~<~< ((a)) -- (a)
+a()~<~< = -+
+()-+ = +
+(x)()~< = ()x
+
+try 6
+a = -~> (c)(b)(a) -- (b)((c))
+b = ,+< (b)(a) -- (ba)ba
+
+()a = ~>
+()b = +<
+()~>~> ((a)) -- (a)
+
+try 7
+a = ~>, (b)(a) -- (a(b))
+b = -+< (b)(a) -- (b)b
+
+()a = >
+()b = +<
+
+from my experiments so far, i think `-` always goes at the beginning of a proper combinator base, 
+since otherwise it seems to neutralize every combinator before it except for `<`, 
+which cant be followed by it in a proper base. 
+additionally, < seems to neutralize , and >, so the only ones allowed before it
+are `+` and `~`
+
+try 8
+a = -,>  (c)(b)(a) -- ((cb))
+b = ~+<  (b)(a) -- (a)(b)b
+
+()a = ,>
+()()a = >
+
+
+3-comb base
+
+try 1
+a = ~<
+b = ->
+c = ,+
+
+()b = >
+()c = +
+
+cb = ,>
+,>()aa = ,
+->()aa = -
+(-x)()a = x
+
+try 2
+a = +<
+b = ,>
+c = -~
+
+()b = >
+()c = ~
+c~ = -
+(--)~baa = <
+b< = ,
+>a~< = +
+
+back to 2 combinator base
+given that +< worked so well for 3 combinator base, ill try it again:
+
+try 9
+a = ~,>
+b = -+<
+
+()a = ~>
+()b = +<
+
+

@@ -1,0 +1,30 @@
+x^2 - y^2 = n => (x-y)(x+y) = n
+let x = a/2, y=b/2
+
+then x - y in Z implies (a-b)/2 in Z, 
+which implies 2|(a-b)
+which is equivalent to a=b (mod 2)
+
+x^2-y^2 = n
+=> (a^2-b^2)/4 = n
+=> a^2 - b^2 = 4n
+let a = b+k
+then 2bk + k^2 = 4n
+k^2 + 2bk - 4n = 0
+
+root = (-2b +- sqrt(4b^2 + 16n))/2 = -b +- sqrt(b^2 - 4n)
+
+b = (4n - k^2) / 2k
+a = b+k
+
+a^2 - b^2 
+   = 2bk + k^2
+   = 4n - k^2 + k^2
+   = 4n
+
+b in Z implies 2k|k^2 => 2|k
+
+so let k = 2p, 
+then b = (4n-4p^2)/4p = (n-p^2)/p
+b in Z implies p|n
+bruh

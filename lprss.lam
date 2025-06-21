@@ -1,0 +1,36 @@
+````(`\fix\cons\pair\nil\n
+  (```\step
+      (`fix\self\l\n
+        ``l
+          (\h\t`h\idx\list ``self (````step list idx n t) (\f\x `f ``n f x))
+	  (n)
+      )
+      (`fix
+        (\self\l\idx\n
+          (``l
+            (\h\t
+	      (`\pack
+	        (`h\a\b
+    	          ``b
+    	            (\h2\t2 `cons (``pair idx (````self b a n t)))
+                    (``a
+    	              (\p `cons (``pack idx (``n (`pack p) (``pair p nil))))
+    	              (`n (`cons (``pair idx t)))
+                    )
+    	        )
+    	        (\i\x ``pair i (``cons x t))
+	      )
+    	    )
+  	    (\x x)
+          )
+        )
+      )
+      (``cons (``pair nil (``cons (``pair (``n (\n\s\z `s n) nil) nil) nil)) nil)
+      (n)
+    )
+  )
+(\f `\x `x x \x `f \z ``x x z)
+(\a\b\c\n ``c a b)
+(\a\b\f ``f a b)
+(\c\n n)
+(\f\x `f `f `f `f `f x)

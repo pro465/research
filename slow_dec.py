@@ -8,7 +8,7 @@ def p(arr):
         if x>=lim:
             rep_idx=i-(x>lim)
             break
-    res=[lim-1]
+    res=[]
     rep=arr[:rep_idx+1]
     for i in arr[rep_idx:]:
         res+=[i] if i != lim else rep
@@ -24,4 +24,4 @@ def f(arr):
         arr=nz(p(arr))
     return n
 
-print(f([3, 3, 3, 3, 3, 3]))
+print(f([3, 2, 2, 3, 3, 3, 3]))

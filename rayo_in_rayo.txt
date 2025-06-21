@@ -1,0 +1,141 @@
+x=y - 3
+xIy - 3
+(!A) - 3
+Ex(A) - 4
+(A&B) - 3
+(A->B) - (!(A&(!B))) - 9
+(A<->B) - ((A->B)&(B->A)) - 21
+(A|B) - (!((!A)&(!B))) - 12
+Vx(A) - (!Ex((!A))) - 10
+C(a,b) - Vx(xIa->xIb) - 25
+P(s)=p - Vx(xIp<->C(x,s)) - 56
+
+(un)ordered collections
+{a}=c - (aIc&(!Eb((bIc&(!a=b))))) - 25
+{a,b}=c - (aIc&(bIc&(!Ey((yIc&((!a=y)&(!b=y))))))) - 40
+(a,b)=c - Ex(Ey(({a}=y&({a,b}=x&{x,y}=c)))) - 40*2 + 25 + 14 = 119
+(a,b,c)=d - Ex(((a,b)=x&(x,c)=d))
+(a,b)Ic - Ex(((a,b)=x&xIc)) - 119 + 10 = 129
+(a,b,c)Id - Ex(((a,b)=x&(x,c)Id))
+
+Functions and Relations
+f(x0,...,xn)=y - (x0,...,xn,y)If
+IsFunc(f) - Vx(Vy(((x,y)If->Vz((x,z)If->y=z))))
+IsFunc(f,dom) - Vx((xIdom->Ey(((x,y)If&Vz((x,z)If->y=z))))
+IsFunc_c(f,cod) - Vx(Vy(((x,y)If->(yIcod&Vz((x,z)If->y=z)))))
+IsFunc(f,dom,cod) - Vx((xIdom->Ey(((x,y)If&(yIcod&Vz((x,z)If->y=z))))))
+IsRelat(r,dom,cod) -  Vx(Vy(((x,y)Ir->(xIdom&yIcod))))
+r(x0,...,xn) - (x0,...,xn)If
+
+Naturals
+Is0(0) - (!Ex(xI0)) - 9
+IsLimit(x) - Vy((yIx->Ez((zIx&yIz)))) - 10+3+9+4+9=35
+IsTrans(s) - Vx(Vy(((yIx&xIs)->yIs)))
+IsNat(N) - (IsTrans(N)&(0IN&Vx(Vy((xIN&yIN)->(((xIy|x=y)|yIx)&(!IsLimit(x))))))) - 
+Succ(a)=b - (aIb&(!Ex((aIx&xIb)))) - 22
+Is1(1) - (1IN&Succ(0)=1)
+
+Addition 
+IsAdd(+) - IsFunc(+,N,N)&Va((aIN->(Vb((bIN->Ec(((cIN&Succ(b)=c)&
+               (a+0=a&Vx((a+b=x
+	           ->Ey((yIN&Succ(x)=y)&a+c=y)
+	       )))
+	   )))))))
+
+Is2(2) - 1+1=2
+Is3(3) - 2+1=3
+Is4(4) - 3+1=4
+
+
+Grothendieck Universes (unused for now)
+U(x)=y - Vs((Et(x(t)=s)<->C(s,y)))
+IsGroth(U) - (IsTrans(U)
+             &Vx(Vy(Vz(
+	        (((xIU&yIU&{x,y}=z)->({x,y}=z&zIU))
+		&(((xIU&P(x)=y)->yIU)
+		&((IsFunc(x,y,z)&yIU&zIU)->Ew(U(x)=w&wIU))))
+	     ))))
+
+IsValid(x,T) - Es(IsTrans(s)&xIs&(!TIs))
+#check that x doesn't contain T somewhere in it
+
+IsTermS(T) - Va(aI4->Vx(Vy(Ep(((a,x)=p&Eq(((a,x,y)=q&
+                (((a=0&xIT)->pIT)
+		&(((a=1&(xIN&yIN))->qIT)
+		&(((a=2&(xIT&yIT))->qIT)
+		&(((a=3&(xIN)&yIN)->qIT)
+		&(((IsValid(x,T)&{x}=y)->yIT)
+		)))
+	     ))))))))
+#superset of actual T
+# (0,x) = !x
+# (1,x,y) = (xIy)
+# (2,x,y) = (x&y)
+# (3,x,y) = Ex(y)
+# "=" can be derived from the above
+
+IsTerm(T) - IsTermS(T)&VT'(IsTermS(T')->C(T,T'))
+#the actual T is the minimal set satisfying IsTermS(T)
+
+isLen(len) - (isFunc(len,T,N)&(Vx(Vy(({x}=y->len(y)=1)))&(Vn((nIN->(
+		(len(n)=1&(Va(Vp(Vb(Vq(((len(a)=p&len(b)=q)->
+		    Ec(Ed(Er(Es((a,b)=c&((n,a,b)=d&(p+q=r&(r+1=s&
+		        len(c)=r&len(d)=s
+		    )))))))
+		)))))))
+	     ))))))
+#len is a function T->N
+#such that:
+#    len("x")=1
+#    len("(!A)")=len("A")+1
+#    len("(A&B)")=len("(AIB)")=len("A")+len("B")+1
+#    len("Ex(B)")=len("B")+2
+
+IsSub(sub) - 
+             Ex(((T,N,T)=x&(IsFunc(sub,x,T)
+	        &Va(Vb(Vc(Vp(Vr(Ed(Ee(Ef(Eg(aIN&rIT&(a,b)=d&(a,b,c)=e&sub(b)=f&sub(c)=g
+		   &((a=0->Ex((0,f)=x&sub(d,p,r)=x))
+		   &(((0Ia&aI4)->Ex((a,f,g)=x&sub(e,p,r)=x))
+		   &((aIN&4Ia)->((a=p&sub(a,p,r)=r)|(!a=p)))
+		   ))
+		)))))))))
+	     )))
+
+#sub is a function TxNxT->T
+#such that:
+#    sub("(!A)",p,r)="(!{sub("A",p,r)})"
+#    sub("(AIB)",p,r)="({sub("A",p,r)}I{sub("B",p,r)})"
+#    sub("(A&B)",p,r)="({sub("A",p,r)}&{sub("B",p,r)})"
+#    sub("Ex(A)",p,r)="Ex({sub("A",p,r)})"
+#    sub("x",p,r)="x" if x!=p, otherwise "r"
+
+IsEval(eval) -
+        (C(eval,T)
+	     &Va(aI4->Vb(Vc(Ed(((a,b)=d&Ee(((b,c)=e&Ef(((a,e)=f&
+	         &((a=0&bIT)->(dIeval<->(!bIeval)))
+	         &((a=1)->(Vx(Vy((({x}=b&{y}=c)->(fIeval<->xIy)))))
+	         &((a=2&bIT&cIT)->(fIeval<->(bIeval&cIeval)))
+	         &((a=3&bIT&cIT)->(fIeval<->Vx(Ey(Ez(IsValid(x,T)&{x}=y&(sub(c,b,y)=z&zIeval))))))
+	     ))))))))))
+	)
+
+#eval is the subset of T consisting of true sentences
+#    (0,x) is in eval iff x is not in eval
+#    (1,x,y) is in eval iff x={p},y={q} such that p is in q
+#    (2,x,y) is in eval iff x and y are both in eval
+#    (3,x,y) is in eval iff there exists an r such that sub(y,x,{r}) is in eval
+
+IsTrue(s,n) - Ex(Ey(nIN&{n}=x&sub(s,4,x)=y&yIeval))
+
+F(s,n)=x - len(s)=n&IsTrue(s,x)&Vy(IsTrue(s,y)->C(x,y))
+
+Rayo(n)=x1 - Es(F(s,n)=x1)&Vs(Vx(F(s,n)=x->C(x1,x)))
+
+final expression:
+
+E0(E1(E2(E3(E4(EN(E+(ET(Elen(Esub(Eeval(En(
+    Is0(0)&IsNat(N)&Is1(1)&Is2(2)&Is3(3)&Is4(4)
+    &IsAdd(+)&IsTerm(T)&IsLen(len)&IsSub(sub)&IsEval(eval)
+    &n=2^65536&Rayo(n)=x1
+))))))))))))
+

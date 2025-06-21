@@ -1,0 +1,40 @@
+````\fix\cons\pair`\add`\slice\n
+  ```(\step`fix\self\a\n
+      ``a
+        (\x\y ``self (``step a n) (\f\x `f ``n f x))
+	(n)
+   )
+   (\a\n``a
+     (\h\t `h(\p\d
+       ``d
+         (\pred```slice t p
+           (\f\s
+	     ``n (`add (``cons
+	         (``pred
+	           (\x ``pair p pred)
+	           (``s
+                     (\h\t `h\q\d ``pair (\f\x `f ``p f ``q f x) d)
+		     (``pair s s)
+		   )
+	         )
+		 (f)
+	       )) s
+	   )
+	 )
+	 (t)
+       )
+     )
+     (n)
+   )
+   (``\succ\nil
+       (``cons (``pair nil (``n succ nil)) (``cons (``pair nil nil) nil))
+       (\n\a\b `a n)
+       (\a\b b)
+   )
+   (n)
+   (\l\p ``p (\p`p\a\b (``b (\h\t ``pair (``add a ``cons h (\a\b b)) (t)) (p))) (``pair (\a\b b) l))
+   (`fix\self\a\b ``a (\h\t ``cons h (``self t b)) (b))
+(\f `(\x `x x) (\x `f \z ``x x z))
+(\a\b\c\n ``c a b)
+(\a\b\f ``f a b)
+(\f\x `f `f `f `f `f x)

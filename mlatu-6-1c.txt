@@ -1,0 +1,22 @@
+double = >~>,~,< = (C)(B)(A) -- (A)(B)C
+base = (---a)(b) double
+
+(base) base = ((---a)(b)double)(---a)(b)double
+           = (b)(---a)(---a)(b)double
+           = (b)(b)(---a)---a
+           = a
+
+if we set a = '<', then
+(base)base = <
+(<)base    = (b)(---<)<
+           = --<
+(base)--<  = -<
+(-<) base  = (--<)(---a)(b)double
+           = (b)(---a)-<
+	   = b
+
+====
+
+(D)(C)(B)(A) x = (D)(C)(B)(f)B
+let f=
+
